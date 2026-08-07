@@ -2,7 +2,7 @@
 
 ### Alterar e adicionar uma coluna nova:
 ```sql
-ALTER TABLE nome_da_tabela AND COLUMN nome_da_coluna TIPO;
+ALTER TABLE nome_da_tabela ADD COLUMN nome_da_coluna TIPO;
 ```
 
 ```sql

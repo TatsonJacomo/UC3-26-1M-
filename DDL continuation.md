@@ -6,7 +6,7 @@ ALTER TABLE nome_da_tabela ADD COLUMN nome_da_coluna TIPO;
 ```
 
 ```sql
-ALTER TABLE clientes AND COLUMN cpf  VARCHAR(11) NOT NULL UNIQUE;
+ALTER TABLE clientes ADD COLUMN cpf  VARCHAR(11) NOT NULL UNIQUE;
 ```
 
 

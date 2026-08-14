@@ -42,3 +42,33 @@ UPDATE nome_da_tabela SET nome_da_coluna = novo_valor WHERE condicao;
 ```sql
 UPDATE livros SET titulo = "O Inferno de Xablau"  WHERE id = 3;
 ```
+
+
+```sql
+-- Trocar o titulo de 2 livros
+-- Trocar o autor de outros 2 livros
+
+UPDATE livros 
+SET titulo = "Maria Vai com as outras"
+WHERE id = 6;
+
+UPDATE livros
+SET titulo = "Ela Não Voltou"
+WHERE id = 7;
+
+UPDATE livros
+SET autor = 'Miguel de Cervantes - Atualizado'
+WHERE id = 4;
+
+UPDATE livros
+SET autor = 'João Louco'
+WHERE id = 8;
+
+```
+
+
+DELETAR o livro id 4
+
+```sql
+DELETE FROM livros WHERE id = 4;
+```

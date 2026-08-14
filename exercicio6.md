@@ -132,4 +132,29 @@ RENAME COLUMN telefone TO whatsapp;
 
 ALTER TABLE produtos MODIFY COLUMN categoria VARCHAR(80);
 
+
+-- Corrija sem recriar a tabela:    (14)
+-- Adicione uma constraint chamada
+-- fk_item_produto ligando id_produto em itens_venda a produtos(id_produto).
+ALTER TABLE itens_venda
+ADD CONSTRAINT fk_item_produto
+FOREIGN KEY (id_produto) REFERENCES produtos(id_produto);
+
+-- Parte A — Venda cancelada:    (15)
+-- Seu Chico desistiu de um item da venda de hoje.
+-- Remova apenas essa linha de itens_venda (não a venda inteira).
+
+-- Parte B — Tabela de teste:
+-- Existe uma tabela temporária chamada testes_estagiario usada só para treino. Apague-a de vez.
+
+-- Parte C — Só no papel:
+-- Escreva o comando que apagaria o banco mercadinho_do_ze inteiro — mas não execute. 
+-- É só para o Seu Zé ver e assinar embaixo, autorizando (ou não).
+
+DELETE FROM itens_venda WHERE id_item = 1;
+
+DROP TABLE testes_estagiario;
+
+DROP DATABASE mercadinho_do_ze;
+
 ```

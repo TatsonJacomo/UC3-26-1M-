@@ -169,3 +169,8 @@ SELECT* FROM livros WHERE titulo LIKE 'aventura';
 SELECT * FROM livros
 WHERE ano_publicacao LIKE '198_'
 ```
+
+
+Exercicio ¬
+
+https://leosouzasenac.github.io/exercicio-banco-de-dados/seu-ze-wars.html

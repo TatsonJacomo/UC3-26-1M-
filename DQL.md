@@ -174,3 +174,34 @@ WHERE ano_publicacao LIKE '198_'
 Exercicio ¬
 
 https://leosouzasenac.github.io/exercicio-banco-de-dados/seu-ze-wars.html
+
+
+### Passo 18 - Como selecionar algo e ordenar por ordem alfabetica:
+
+```sql
+-- Ordena os livros por titulo, de Z a A
+SELECT * FROM livro
+ORDER BY titulo DESC;
+```
+
+```sql
+-- Ordena os livros por titulo, de A a Z
+SELECT * FROM livro
+ORDER BY titulo ASC;
+```
+
+
+### Passo 19 - Como limitar o numero de resultados de um select:
+```sql
+-- Traz só 5 livros
+SELECT * FROM livro LIMIT 5;
+```
+
+```sql
+-- Select com where + oder by + limit.
+-- Sim, da pra combinar várias coisas em um select. 
+SELECT * FROM livro
+WHERE ano_publicacao > 1943
+ORDER BY ano_publicacao LIMIT 3;
+```
+

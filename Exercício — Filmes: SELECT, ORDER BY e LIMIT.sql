@@ -142,24 +142,37 @@ FROM filme
 ORDER BY ano_lancamento DESC;
 
 -- 2. Só queremos os 10 mais recentes
+-- A consulta anterior ainda mostra muitos filmes.
+-- Modifique-a para retornar somente os:
+-- 10 filmes mais recentes.
+
 SELECT titulo, ano_lancamento 
 FROM filme 
 ORDER BY ano_lancamento DESC 
 LIMIT 10;
 
 -- 3. Quais são os 10 filmes mais antigos?
+-- Agora precisamos fazer o contrário.
+-- Mostre somente os:
+-- 10 filmes mais antigos da tabela.
 SELECT titulo, ano_lancamento 
 FROM filme 
 ORDER BY ano_lancamento ASC 
 LIMIT 10;
 
 -- 4. Quais são os melhores filmes?
+-- Queremos descobrir quais filmes possuem as maiores notas.
+-- Mostre: título; gênero; nota.
+-- Retorne somente os: 10 filmes mais bem avaliados.
 SELECT titulo, genero, nota 
 FROM filme 
 ORDER BY nota DESC 
 LIMIT 10;
 
 -- 5. E os melhores filmes de Terror?
+-- Agora não queremos analisar todos os filmes.
+-- Precisamos apenas dos filmes cujo gênero seja: Terror
+-- Entre eles, mostre os: 5 filmes com maior nota.
 SELECT titulo, genero, nota 
 FROM filme 
 WHERE genero = 'Terror' 
@@ -167,6 +180,9 @@ ORDER BY nota DESC
 LIMIT 5;
 
 -- 6. Quais são os melhores filmes recentes?
+-- Considere somente filmes:
+-- com nota maior ou igual a 7.
+-- Entre eles, mostre os: 10 filmes com maior nota.
 SELECT titulo, ano_lancamento, nota, genero 
 FROM filme 
 WHERE ano_lancamento >= 2015 AND nota >= 7 
@@ -174,20 +190,33 @@ ORDER BY nota DESC
 LIMIT 10;
 
 -- 7. Quais são os filmes mais longos?
+-- Precisamos encontrar os filmes que exigem mais tempo para assistir.
+-- Mostre: título; duração.
+-- Retorne somente os: 5 filmes de maior duração.
 SELECT titulo, duracao_minutos 
 FROM filme 
 ORDER BY duracao_minutos DESC 
 LIMIT 5;
 
 -- 8. Queremos uma sessão mais curta
+-- Precisamos encontrar filmes:
+-- com duração entre 80 e 120 minutos;
+-- com nota maior ou igual a 7.
+-- Entre eles, mostre os: 10 filmes com maior nota.
 SELECT titulo, duracao_minutos, nota 
 FROM filme 
 WHERE duracao_minutos BETWEEN 80 AND 120 
-  AND nota >= 7 
+AND nota >= 7 
 ORDER BY nota DESC 
 LIMIT 10;
 
 -- 9. Ação, Aventura ou Ficção Científica
+-- Queremos somente filmes dos seguintes gêneros: Ação, Aventura, Ficção Científica
+-- Utilize IN para realizar o filtro.
+-- Depois:
+-- organize pela maior nota;
+-- em caso de empate, coloque primeiro o filme mais recente;
+-- mostre somente os 10 primeiros.
 SELECT titulo, genero, nota, ano_lancamento 
 FROM filme 
 WHERE genero IN ('Ação', 'Aventura', 'Ficção Científica') 
@@ -195,11 +224,22 @@ ORDER BY nota DESC, ano_lancamento DESC
 LIMIT 10;
 
 -- 10. Escolha um filme para assistir
+-- Uma pessoa quer assistir a um filme que tenha:
+-- sido lançado a partir de 2010;
+-- nota maior ou igual a 7.5;
+-- duração máxima de 150 minutos;
+-- gênero Ação, Aventura ou Ficção Científica.
+-- O sistema deve recomendar somente os:
+-- 5 melhores filmes.
+-- Eles devem aparecer:
+-- da maior nota para a menor;
+-- em caso de empate, do mais recente para o mais antigo.
+-- Escreva uma única consulta que resolva o problema.
 SELECT titulo, genero, ano_lancamento, nota, duracao_minutos 
 FROM filme 
 WHERE ano_lancamento >= 2010 
-  AND nota >= 7.5 
-  AND duracao_minutos <= 150 
-  AND genero IN ('Ação', 'Aventura', 'Ficção Científica') 
+AND nota >= 7.5 
+AND duracao_minutos <= 150 
+AND genero IN ('Ação', 'Aventura', 'Ficção Científica') 
 ORDER BY nota DESC, ano_lancamento DESC 
 LIMIT 5;

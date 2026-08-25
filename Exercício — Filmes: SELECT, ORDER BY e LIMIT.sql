@@ -1,7 +1,3 @@
-Exercício — Filmes: SELECT, ORDER BY e LIMIT
-
-```sql
-
 -- Parte 1 — Criando o banco e a tabela
 CREATE DATABASE cinemateca;
 
@@ -141,64 +137,69 @@ VALUES
 -- Precisamos descobrir quais filmes foram lançados mais recentemente.
 -- Mostre: (título; ano de lançamento)
 -- Organize do mais recente para o mais antigo.
-SELECT * FROM filme 
-ORDER BY titulo DESC;
-
-SELECT * FROM filme
+SELECT titulo, ano_lancamento 
+FROM filme 
 ORDER BY ano_lancamento DESC;
 
 -- 2. Só queremos os 10 mais recentes
-SELECT * FROM filme 
-ORDER BY titulo, ano_lancamento DESC
+SELECT titulo, ano_lancamento 
+FROM filme 
+ORDER BY ano_lancamento DESC 
 LIMIT 10;
 
 -- 3. Quais são os 10 filmes mais antigos?
-SELECT * FROM filme 
-ORDER BY titulo, ano_lancamento ASC 
+SELECT titulo, ano_lancamento 
+FROM filme 
+ORDER BY ano_lancamento ASC 
 LIMIT 10;
 
 -- 4. Quais são os melhores filmes?
-SELECT * FROM filme 
-ORDER BY titulo, genero, nota DESC 
+SELECT titulo, genero, nota 
+FROM filme 
+ORDER BY nota DESC 
 LIMIT 10;
 
 -- 5. E os melhores filmes de Terror?
-SELECT * FROM filme 
+SELECT titulo, genero, nota 
+FROM filme 
 WHERE genero = 'Terror' 
 ORDER BY nota DESC 
 LIMIT 5;
 
 -- 6. Quais são os melhores filmes recentes?
-SELECT * FROM filme 
+SELECT titulo, ano_lancamento, nota, genero 
+FROM filme 
 WHERE ano_lancamento >= 2015 AND nota >= 7 
 ORDER BY nota DESC 
 LIMIT 10;
 
 -- 7. Quais são os filmes mais longos?
-SELECT * FROM filme 
-ORDER BY titulo, duracao_minutos DESC 
+SELECT titulo, duracao_minutos 
+FROM filme 
+ORDER BY duracao_minutos DESC 
 LIMIT 5;
 
 -- 8. Queremos uma sessão mais curta
-SELECT * FROM filme 
+SELECT titulo, duracao_minutos, nota 
+FROM filme 
 WHERE duracao_minutos BETWEEN 80 AND 120 
-AND nota >= 7 
+  AND nota >= 7 
 ORDER BY nota DESC 
 LIMIT 10;
 
 -- 9. Ação, Aventura ou Ficção Científica
-SELECT * FROM filme 
+SELECT titulo, genero, nota, ano_lancamento 
+FROM filme 
 WHERE genero IN ('Ação', 'Aventura', 'Ficção Científica') 
 ORDER BY nota DESC, ano_lancamento DESC 
 LIMIT 10;
 
 -- 10. Escolha um filme para assistir
-SELECT * FROM filme 
+SELECT titulo, genero, ano_lancamento, nota, duracao_minutos 
+FROM filme 
 WHERE ano_lancamento >= 2010 
-AND nota >= 7.5 
-AND duracao_minutos <= 150 
-AND genero IN ('Ação', 'Aventura', 'Ficção Científica') 
+  AND nota >= 7.5 
+  AND duracao_minutos <= 150 
+  AND genero IN ('Ação', 'Aventura', 'Ficção Científica') 
 ORDER BY nota DESC, ano_lancamento DESC 
 LIMIT 5;
-
-```

@@ -205,3 +205,75 @@ WHERE ano_publicacao > 1943
 ORDER BY ano_publicacao LIMIT 3;
 ```
 
+
+### Passo 20 - Como contar o numero de registro:
+Podemos fazer isso utlizando a função de agregação COUNT(*). Ela conta quantos registros existem na nossa tabela e obedecem a tal condição(se houver).
+
+```sql
+-- Conta quantos filmes exitem na tabela 
+SELECT COUNT(*) FROM filme;
+```
+
+```sql
+-- Conta quantos filmes de ação exitem na tabela 
+SELECT COUNT(*) FROM filme WHERE genero = 'Ação';
+```
+
+```sql
+-- Conta quantos filmes exitem sem  contar valores nulos 
+SELECT COUNT(nome_da_coluna) FROM filme;
+```
+
+### Passo 21 - Como somar valores de uma tabela:
+PAra somar qualquer valor numero podemmos usar a função SUM(nome_da_coluna). Ela faz a soma de todos os valores que selecionamos, com ou sem WHERE. 
+
+```sql
+SELECT SUM(nome_da_coluna) FROM filme;
+
+-- Soma toda a coluna bilheteria 
+SELECT SUM(bilheteria) FROM filme;
+```
+
+```sql
+-- Soma a bilheteria dos filmes de 2020 em diante
+SELECT SUM(bilheteria) FROM filme
+ WHERE ano_lancamento >= 2020;
+```
+
+### Passo  22 - Como calcular media de valores de uma coluna
+Podemos calcular a media NUMERICA de valores de uma coluna utilizando a função AVG(nome_da_coluna).
+
+```sql
+-- Calcula a media de bilheteria de todos os valores
+SELECT AVG(bilheteria) FROM filme;
+```
+
+```sql
+-- Calcula a media de biblioteca so dos filmes com notaa igual ou abaixo de 7
+SELECT AVG(bilheteria) FROM filme
+ WHERE nota  <= 7;
+```
+
+### Passo 23 - Como calcular a NEMOR VALOR  de uma coluna:
+Para podermos encontrar o maior ou menor numero deum coluna, usamos MAX(nome_da_coluna) e MIN(nome_da_coluna).
+
+```sql
+-- Encontrar o filme com a MENOR nota:
+SELECT MIN(nota) FROM filme;
+```
+
+
+```sql
+-- Encontrar o filme com a MAIOR nota:
+SELECT MAX(nota) FROM filme;
+```
+
+Em uma única consulta (um único SELECT), me mostre quantos filmes tem no total, qual a média das notas, qual a nota máxima e qual a nota minima. Usem apelidos para as colunas.
+
+```sql
+ SELECT COUNT(*) AS filmes,
+ AVG(nota) AS media_das_notas,
+ MAX(nota) AS nota_maxima,
+ MIN(nota) AS nota_minima
+ FROM filme; 
+```

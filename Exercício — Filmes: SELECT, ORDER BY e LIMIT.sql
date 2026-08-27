@@ -243,3 +243,110 @@ AND duracao_minutos <= 150
 AND genero IN ('Ação', 'Aventura', 'Ficção Científica') 
 ORDER BY nota DESC, ano_lancamento DESC 
 LIMIT 5;
+
+
+
+
+
+-- Conta quantos filmes tem na tabela.
+SELECT COUNT(*) AS numer_de_filmes FROM filme;
+
+-- Mostrar quantos filmes são de ação 
+SELECT COUNT(*) AS numero_de_filmes_de_acao FROM filme
+WHERE genero = 'Ação';
+
+-- 	Conta quantas linhas existem
+SELECT COUNT(bilheteria) FROM filme;
+
+-- Soma os valores de uma coluna numérica
+SELECT SUM(bilheteria) AS bitheteria_total FROM filme;
+
+-- Soma a bilheteria dos filmes de 2020 em diante
+SELECT SUM(bilheteria) FROM filme
+ WHERE ano_lancamento >= 2020;
+ 
+ 
+ SELECT AVG(bilheteria) FROM filme;
+ -- Calcular a media da bilheteria dos filmes que tem nota MAIOR OU IGUAL a 8
+ SELECT AVG(bilheteria) FROM filme
+ WHERE nota  <= 7;
+ 
+ 
+ SELECT COUNT(*) AS filmes,
+ AVG(nota) AS media_das_notas,
+ MAX(nota) AS nota_maxima,
+ MIN(nota) AS nota_minima
+ FROM filme; 
+ 
+ -- Qual a quantidade de genero dos filmes
+ SELECT	genero, COUNT(*) AS quantidade FROM filme
+ GROUP BY genero;
+ 
+ -- Qual a média das notas de cada gênero
+  SELECT genero, AVG(nota) AS media FROM filme
+ GROUP BY genero;
+ 
+ -- Mostra a media em ordem
+  SELECT genero, AVG(nota) AS quantidade FROM filme
+ GROUP BY genero ORDER BY quantidade DESC;
+ 
+ -- MAIOR NOTA 
+   SELECT genero, AVG(nota) AS media FROM filme
+ GROUP BY genero ORDER BY media DESC LIMIT 1;
+ 
+ -- Mostre generos com ate 10 filmes
+ SELECT genero, COUNT(*) AS quantidade FROM filme 
+ GROUP BY  genero
+ HAVING quantidade > 10;
+ 
+ -- mostra todos os generos menos 'FIcção Científica'.
+  SELECT genero, COUNT(*) AS quantidade FROM filme 
+WHERE genero <> 'FIcção Científica'
+ GROUP BY  genero
+ HAVING quantidade >= 10;
+
+
+ -- WHERE filtra linhas
+ -- HAVING filtra grupos
+ 
+ 
+ -- Quais gêneros possuem média de nota maior ou igual a 8?
+
+-- separar os filmes por gênero
+-- Calcula a media de cada gênero
+ SELECT genero, AVG(nota) AS media_nota
+ FROM filme GROUP BY genero
+ HAVING media_nota >= 8 ORDER BY media_nota DESC;
+ 
+ 
+ -- Quais países que produziram pelo menos 5 filmes?
+ SELECT pais, COUNT(*) AS numero_filmes FROM filme
+ GROUP BY pais
+ HAVING numero_filmes >= 5;
+
+
+-- Quero que me retorne apenas o Diretor com mais Oscars
+SELECT diretor, COUNT(*) AS mais_oscars FROM filme
+GROUP BY diretor
+ORDER BY mais_oscars DESC
+LIMIT 1;
+
+-- Quais sao os 3 generos com maior média de nota?
+-- Considere apenas generos que possuam pelo menos  5 filmes cadastrados.
+-- o resultado deve mostrar:
+-- gênero
+-- quantidade de filmes
+-- média das notas
+
+-- Os resultados devem aparecer:
+-- da maior média para a menor .
+-- somente os 3 primeiros.alter
+
+-- Escreva uma única consulta que resolva todo o preblema.
+
+SELECT genero, COUNT(*) AS quantidade_filmes, 
+AVG(nota) AS media_notas FROM filme
+GROUP BY genero
+HAVING COUNT(*) >= 5
+ORDER BY media_notas DESC
+LIMIT 3;

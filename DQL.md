@@ -385,3 +385,145 @@ HAVING COUNT(*) >= 5
 ORDER BY media_notas DESC
 LIMIT 3;
 ```
+
+
+# JOIN - Como Juntar informações de duas ou mais tabelas
+
+## JOIN significa , literalmente, JUNTAR. Ou seja, através deste comando, podemos fazer um QUERY (consulta) pegando informaões de várias tabelas diferentes, DESDE QUE ELAS
+
+```sql
+## INNER JOIN
+
+/*
+Para selecionar as colunas de várias tabelas, precisamos informar primeiro o nomer da tabela, depois um ponto (.) e depois o nome da coluna. EX: aluno.nome
+
+Separamos as informações das várias tabelas com virgula. EX: aluno.nome, livro.titulo
+
+agora pense: qual tabela possui as Fks? É esta tabela que vira depois dor FROM.
+
+Então, precisamos fazer a junção com as outras tabelas. Para isso, usamos INNER JOIN + a próxima tabela + ON, e, depois do ON, precisamos identificar qual coluna nas duas tabelas liga uma na outra . Ou seja, as FOREIGN KEYS. EX: emprestimo.id_aluno = aluno.id_aluno.
+
+Repita o processo de INNER JOIN para quantas tabelas forem necessarias.
+*/
+
+SELECT aluno.nome, livro.titulo, emprestimo.data_emprestimo
+FROM emprestimo
+INNER JOIN aluno ON emprestimo.id_aluno = aluno.id_aluno
+INNER JOIN livro ON emprestimo.id_livro = livro.id_livro;
+```
+
+
+```sql
+
+
+ -- JUNÇÕES (JOIN)
+CREATE DATABASE IF NOT EXISTS biblioteca;
+USE biblioteca;
+
+DROP TABLE IF EXISTS emprestimo;
+DROP TABLE IF EXISTS aluno;
+DROP TABLE IF EXISTS livro;
+
+CREATE TABLE aluno (
+  id_aluno INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(100) NOT NULL,
+  turma VARCHAR(20)
+);
+
+CREATE TABLE livro (
+  id_livro INT AUTO_INCREMENT PRIMARY KEY,
+  titulo VARCHAR(150) NOT NULL,
+  autor VARCHAR(100)
+);
+
+CREATE TABLE emprestimo (
+  id_emprestimo INT AUTO_INCREMENT PRIMARY KEY,
+  id_aluno INT NOT NULL,
+  id_livro INT NOT NULL,
+  data_emprestimo DATE NOT NULL,
+  data_devolucao DATE,
+  FOREIGN KEY (id_aluno) REFERENCES aluno(id_aluno),
+  FOREIGN KEY (id_livro) REFERENCES livro(id_livro)
+);
+
+-- 4 alunos — repare que a "Duda" (id 4) nunca vai aparecer em nenhum empréstimo
+INSERT INTO aluno (nome, turma) VALUES
+('Bruno Lima', 'DS-2026'),
+('Carla Nunes', 'DS-2026'),
+('Diego Fontes', 'DS-2027'),
+('Duda Ramos', 'DS-2027');
+
+-- 4 livros — repare que "Vidas Secas" (id 4) nunca vai aparecer em nenhum empréstimo
+INSERT INTO livro (titulo, autor) VALUES
+('Dom Casmurro', 'Machado de Assis'),
+('O Cortiço', 'Aluísio Azevedo'),
+('Iracema', 'José de Alencar'),
+('Vidas Secas', 'Graciliano Ramos');
+
+-- 3 empréstimos, ligando só os 3 primeiros alunos aos 3 primeiros livros
+INSERT INTO emprestimo (id_aluno, id_livro, data_emprestimo, data_devolucao) VALUES
+(1, 1, '2026-08-01', '2026-08-15'),
+(2, 2, '2026-08-03', NULL),
+(1, 3, '2026-08-10', NULL);
+
+
+SELECT * FROM aluno;
+SELECT * FROM livro;
+SELECT * FROM emprestimo;
+
+-- INNER JOIN: só quem tem correspondência nos dois lados
+-- O INNER JOIN é o mais comum. Ele só traz uma linha no resultado 
+-- quando existe correspondência nas duas tabelas ao mesmo tempo.
+
+SELECT aluno.nome, livro.titulo, emprestimo.data_emprestimo
+FROM emprestimo
+INNER JOIN aluno ON emprestimo.id_aluno = aluno.id_aluno
+INNER JOIN livro ON emprestimo.id_livro = livro.id_livro;
+
+
+
+-- 1) Mostre o nome do aluno que fez o empréstimo de ID 1 e a data do empréstimo. Use WHERE depois do inner join.
+
+-- 2) Mostre o nome e a turma do aluno que fez o empréstimo de ID 2 (use WHERE  depois do inner join).
+
+SELECT aluno.nome, emprestimo.data_emprestimo
+FROM aluno
+INNER JOIN emprestimo ON aluno.id_aluno = emprestimo.id_aluno
+WHERE emprestimo.id_emprestimo = 1;
+
+
+SELECT aluno.nome, aluno.turma
+FROM aluno
+INNER JOIN emprestimo ON aluno.id_aluno = emprestimo.id_aluno
+WHERE emprestimo.id_emprestimo = 2;
+
+
+-- OUTRA FORMA DE RESOLVER
+SELECT aluno.nome, emprestimo.data_emprestimo
+FROM emprestimo
+INNER JOIN aluno ON emprestimo.id_aluno = aluno.id_aluno
+WHERE emprestimo.id_emprestimo = 1;
+
+
+SELECT aluno.nome, aluno.turma
+FROM emprestimo
+INNER JOIN aluno ON emprestimo.id_aluno = aluno.id_aluno
+WHERE emprestimo.id_emprestimo = 2;
+
+
+-- USANDO APELIDO E ABREVIANDO
+ SELECT a.nome, e.data_emprestimo
+FROM emprestimo AS e
+INNER JOIN aluno AS a ON e.id_aluno = a.id_aluno
+WHERE e.id_emprestimo = 1;
+
+
+SELECT a.nome, a.turma
+FROM emprestimo AS e
+INNER JOIN aluno AS a ON e.id_aluno = a.id_aluno
+WHERE e.id_emprestimo = 2;
+
+
+```
+
+

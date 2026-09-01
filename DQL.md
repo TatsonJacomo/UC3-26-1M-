@@ -281,6 +281,7 @@ Em uma única consulta (um único SELECT), me mostre quantos filmes tem no total
 
 
 
+```sql
 -- Conta quantos filmes tem na tabela.
 SELECT COUNT(*) AS numer_de_filmes FROM filme;
 
@@ -383,3 +384,4 @@ GROUP BY genero
 HAVING COUNT(*) >= 5
 ORDER BY media_notas DESC
 LIMIT 3;
+```
